@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เช็คลิสต์พนักงานใหม่ | Unitech PCB (Thailand) Co., Ltd.</title>
+<style>
+  :root{
+    --primary:#1e3a5f;
+    --primary-light:#2c5282;
+    --accent:#c9a227;
+    --bg:#f4f6f8;
+    --card:#ffffff;
+    --border:#e2e6ea;
+    --text:#1f2937;
+    --text-muted:#6b7280;
+    --success:#2f855a;
+    --success-bg:#e6f4ea;
+    --warn-bg:#fff7e6;
+    --warn-border:#f2c14e;
+    --warn-text:#8a5a00;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Sarabun","Noto Sans Thai","Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  header{
+    background:linear-gradient(135deg,var(--primary),var(--primary-light));
+    color:#fff;
+    padding:32px 24px 28px;
+    text-align:center;
+  }
+  header h1{margin:0 0 6px;font-size:1.5rem;font-weight:700;}
+  header p{margin:0;font-size:0.9rem;opacity:0.85;}
+  header .zh{font-size:0.82rem;opacity:0.7;margin-top:2px;}
+
+  .container{max-width:880px;margin:-20px auto 60px;padding:0 16px;}
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    margin-bottom:20px;
+    overflow:hidden;
+  }
+
+  .info-banner{padding:22px 24px;}
+  .info-banner h2{margin:0 0 14px;font-size:1.05rem;color:var(--primary);}
+  .info-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:0.92rem;}
+  .info-row:last-child{border-bottom:none;}
+  .info-row .ico{flex-shrink:0;width:22px;text-align:center;}
+  .info-row .lbl{color:var(--text-muted);min-width:120px;flex-shrink:0;}
+  .info-row .val{font-weight:600;}
+
+  .dress-code{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
+  @media(max-width:600px){.dress-code{grid-template-columns:1fr;}}
+  .dress-col h4{margin:0 0 8px;font-size:0.88rem;}
+  .dress-col.ok h4{color:var(--success);}
+  .dress-col.no h4{color:#c0392b;}
+  .dress-col ul{margin:0;padding-left:20px;font-size:0.86rem;color:var(--text);}
+  .dress-col li{margin-bottom:3px;}
+
+  .candidate-info{padding:24px;}
+  .candidate-info h2{margin:0 0 16px;font-size:1.1rem;color:var(--primary);}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:600px){.grid{grid-template-columns:1fr;}}
+  .field label{display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;}
+  .field input{
+    width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:6px;
+    font-family:inherit;font-size:0.95rem;
+  }
+  .field input:focus{outline:none;border-color:var(--primary-light);}
+
+  .progress-wrap{padding:18px 24px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border);}
+  .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:0.9rem;}
+  .progress-top strong{color:var(--primary);}
+  .bar{height:10px;background:#e5e9ed;border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#e0b830);width:0%;transition:width .3s ease;}
+
+  .step{border-bottom:1px solid var(--border);}
+  .step:last-child{border-bottom:none;}
+  .step-head{
+    display:flex;align-items:center;gap:14px;padding:18px 24px;cursor:pointer;user-select:none;
+  }
+  .step-num{
+    width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;
+  }
+  .step-head .step-title{flex:1;}
+  .step-title h3{margin:0;font-size:1.02rem;}
+  .step-title span{font-size:0.82rem;color:var(--text-muted);}
+  .step-badge{
+    font-size:0.78rem;padding:3px 10px;border-radius:999px;background:#eef1f4;color:var(--text-muted);white-space:nowrap;
+  }
+  .step-badge.done{background:var(--success-bg);color:var(--success);}
+  .chevron{transition:transform .25s ease;color:var(--text-muted);font-size:1.1rem;}
+  .step.open .chevron{transform:rotate(180deg);}
+
+  .step-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+  .step.open .step-body{max-height:3000px;}
+  .step-body-inner{padding:0 24px 22px 70px;}
+
+  .item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;}
+  .item input[type=checkbox]{margin-top:3px;width:17px;height:17px;accent-color:var(--primary);flex-shrink:0;}
+  .item label{font-size:0.93rem;cursor:pointer;}
+
+  .fields-title{font-size:0.85rem;font-weight:700;color:var(--primary);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.02em;}
+
+  .link-list{display:flex;flex-direction:column;gap:8px;margin:10px 0 16px;}
+  .link-btn{
+    display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;
+    background:#eaf1fb;color:var(--primary);text-decoration:none;font-size:0.9rem;font-weight:600;
+    border:1px solid #cfe0f3;width:fit-content;
+  }
+  .link-btn:hover{background:#dbe8f8;}
+
+  .note-box{
+    background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn-text);
+    border-radius:8px;padding:10px 14px;font-size:0.86rem;margin:10px 0 4px;
+  }
+
+  .actions{
+    display:flex;gap:10px;justify-content:center;padding:8px 16px 40px;flex-wrap:wrap;
+  }
+  button.action-btn{
+    padding:11px 22px;border-radius:8px;border:none;font-size:0.92rem;font-weight:600;cursor:pointer;
+  }
+  .btn-primary{background:var(--primary);color:#fff;}
+  .btn-secondary{background:#fff;color:var(--primary);border:1px solid var(--primary);}
+  .btn-secondary:hover{background:#eef3f8;}
+  .btn-primary:hover{background:var(--primary-light);}
+
+  footer{text-align:center;font-size:0.8rem;color:var(--text-muted);padding:0 16px 30px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>เช็คลิสต์เตรียมความพร้อมพนักงานใหม่</h1>
+  <p>Unitech PCB (Thailand) Co., Ltd. — สำหรับเจ้าหน้าที่สรรหา / พนักงานใหม่</p>
+  <div class="zh">燿華電子(泰國)有限公司</div>
+</header>
+
+<div class="container">
+
+  <div class="card info-banner">
+    <h2>ข้อมูลสำคัญ</h2>
+    <div class="info-row"><span class="ico">📍</span><span class="lbl">สถานที่ทำงาน</span><span class="val">เลขที่ 73 หมู่ 7 ต.ไชยภูมิ อ.ไชโย จ.อ่างทอง 14140</span></div>
+    <div class="info-row"><span class="ico">📅</span><span class="lbl">วันเริ่มงาน</span><span class="val">นัดเริ่มงานเฉพาะวันจันทร์และวันพฤหัสบดีเท่านั้น</span></div>
+    <div class="info-row"><span class="ico">⏰</span><span class="lbl">เวลารายงานตัว</span><span class="val">07:30–08:00 น. เท่านั้น</span></div>
+    <div class="info-row"><span class="ico">⚠️</span><span class="lbl">ข้อกำหนดเอกสาร</span><span class="val">เอกสารต้องครบทุกรายการ หากไม่ครบ เลื่อนเริ่มงานทุกกรณี</span></div>
+    <div class="info-row" style="border-bottom:none;flex-direction:column;">
+      <div style="display:flex;gap:12px;"><span class="ico">👔</span><span class="lbl" style="min-width:auto;">การแต่งกายมาสมัคร/รายงานตัว</span></div>
+      <div class="dress-code">
+        <div class="dress-col ok">
+          <h4>✅ เหมาะสม</h4>
+          <ul>
+            <li>เสื้อมีแขน สุภาพ</li>
+            <li>กางเกงขายาว หรือกระโปรงยาวสุภาพ</li>
+            <li>รองเท้าหุ้มส้น หรือรองเท้าผ้าใบ</li>
+            <li>ผมเรียบร้อย สะอาด</li>
+          </ul>
+        </div>
+        <div class="dress-col no">
+          <h4>❌ ไม่เหมาะสม</h4>
+          <ul>
+            <li>เสื้อกล้าม / เสื้อสายเดี่ยว / เปิดไหล่</li>
+            <li>กางเกงขาสั้น / กระโปรงสั้น</li>
+            <li>รองเท้าแตะ</li>
+            <li>เสื้อผ้ารัดรูป หรือลวดลายไม่สุภาพ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span>ความคืบหน้าโดยรวม</span>
+        <strong id="progressText">0%</strong>
+      </div>
+      <div class="bar"><div class="bar-fill" id="progressBar"></div></div>
+    </div>
+    <div id="stepsContainer"></div>
+  </div>
+
+  <div class="actions">
+    <button class="action-btn btn-secondary" id="resetBtn">↺ ล้างเช็คลิสต์ทั้งหมด</button>
+  </div>
+
+  <footer>บันทึกความคืบหน้าอัตโนมัติในเบราว์เซอร์นี้ · ใช้สำหรับติดตามงานภายในทีมสรรหาเท่านั้น</footer>
+</div>
+
+<script>
+const STEPS = [
+  {
+    title: "กรอกแบบฟอร์มข้อมูลพนักงานใหม่ (เบื้องต้น)",
+    desc: "กรอกข้อมูลเบื้องต้นด้วยตนเองผ่านลิงก์ออนไลน์ ก่อนดำเนินขั้นตอนอื่น ๆ (กรณีไม่สะดวกรับเอกสารที่บริษัท สามารถขอชื่อตำแหน่งและแผนกจากฝ่ายสรรหาได้)",
+    links: [
+      { label: "📝 แบบฟอร์มข้อมูลพนักงานใหม่", url: "https://unitechpcb06-lab.github.io/employee-form/" }
+    ],
+    note: "",
+    fields: [],
+    items: ["กรอกแบบฟอร์มข้อมูลพนักงานใหม่ให้ครบถ้วน"]
+  },
+  {
+    title: "ตรวจสุขภาพก่อนเข้าทำงาน",
+    desc: "เลือกได้ 2 ทาง — ตรวจที่โรงพยาบาลไชโย (บริษัทออกให้ ไม่ต้องสำรองจ่าย) หรือตรวจโรงพยาบาลอื่นด้วยตนเอง",
+    links: [
+      { label: "🏥 กรอกข้อมูลตรวจสุขภาพที่ รพ.ไชโย (ไม่สำรองจ่าย 440 บาท)", url: "https://docs.google.com/forms/d/e/1FAIpQLSeAUeYafd3HLLVF-MtXZlUcNHAc1BM1TOUk2aphd7-GWzjK-Q/viewform?usp=header" },
+      { label: "📄 ใบส่งตัวตรวจสุขภาพ (กรณีตรวจ รพ. อื่นด้วยตนเอง)", url: "https://script.google.com/macros/s/AKfycbw1xycyIGUCWiFaXxn_tl8jK4NmNW-7TSkRlJZTA_Aza8RQ9pBjpMcrUEslAe3xC29SIA/exec?page=health" }
+    ],
+    note: "หากไม่ตรวจที่ รพ.ไชโย บริษัทจะคืนเงินค่าตรวจ 440 บาท ในงวดเงินเดือนถัดไป · ใบรับรองแพทย์/ผลตรวจต้องออกภายใน 1 เดือนก่อนวันเริ่มงาน",
+    fields: [
+      "ตรวจร่างกายทั่วไป (Physical Examination)",
+      "ตรวจปัสสาวะทั่วไป (Urinalysis)",
+      "เอกซเรย์ทรวงอก (Chest X-ray)",
+      "ตรวจสารเสพติด (Drug Screening)",
+      "ตรวจความสมบูรณ์ของเม็ดเลือด (CBC)"
+    ],
+    items: [
+      "เลือกโรงพยาบาลตรวจสุขภาพและกรอกลิงก์ที่เกี่ยวข้อง",
+      "รับผลตรวจสุขภาพ/ใบรับรองแพทย์ตัวจริง"
+    ]
+  },
+  {
+    title: "เปิดบัญชีธนาคารกรุงเทพ (รับเงินเดือน)",
+    desc: "เปิดบัญชีออนไลน์ผ่านลิงก์ หรือเปิดที่สาขาอ่างทองหากไม่สะดวกเปิดออนไลน์",
+    links: [
+      { label: "🏦 ใบเปิดบัญชีธนาคารกรุงเทพ", url: "https://script.google.com/macros/s/AKfycbw1xycyIGUCWiFaXxn_tl8jK4NmNW-7TSkRlJZTA_Aza8RQ9pBjpMcrUEslAe3xC29SIA/exec?page=bank" },
+      { label: "🎥 วิธีเปิดบัญชีออนไลน์ (คลิปวิดีโอ)", url: "https://www.facebook.com/share/19oW8x7PAx/?mibextid=wwXIfr" }
+    ],
+    note: "กรณีไม่สะดวกเปิดออนไลน์ สามารถไปเปิดบัญชีที่สาขาอ่างทองได้",
+    fields: [],
+    items: [
+      "กรอกแบบฟอร์ม/เปิดบัญชีธนาคารกรุงเทพ",
+      "เตรียมสำเนาสมุดบัญชีหน้าแรกไว้ยื่นวันรายงานตัว"
+    ]
+  },
+  {
+    title: "เตรียมเอกสารมารายงานตัววันแรก",
+    desc: "พนักงานต้องมารายงานตัว เวลา 07:30–08:00 น. เท่านั้น เอกสารต้องครบทุกรายการ หากไม่ครบ เลื่อนเริ่มงานทุกกรณี (กรณีเคยมาเขียนใบสมัครแล้ว สามารถใช้เอกสารชุดเดิมได้)",
+    links: [
+      { label: "🔎 ตรวจสอบ/ขอประวัติอาชญากรรม", url: "https://crd.go.th/bg/landing" }
+    ],
+    note: "ใบตรวจประวัติอาชญากรรมใช้เวลาดำเนินการประมาณ 7 วัน ควรยื่นล่วงหน้า · หากพบว่ามีประวัติ จะไม่รับเข้าทำงานทุกกรณี",
+    fields: [],
+    items: [
+      "สำเนาบัตรประชาชน (รับรองสำเนาถูกต้อง) 1 ฉบับ",
+      "สำเนาทะเบียนบ้าน 1 ฉบับ",
+      "รูปถ่ายหน้าตรง ขนาด 1 นิ้ว 2 รูป",
+      "วุฒิการศึกษา หรือ Transcript 1 ฉบับ",
+      "หนังสือรับรองการทำงานจากที่เดิม (ถ้ามี — เฉพาะผู้มีประสบการณ์ธุรกิจใกล้เคียง)",
+      "ใบรับรองแพทย์ตัวจริง/ผลตรวจสุขภาพ (ออกภายใน 1 เดือน)",
+      "ใบเปลี่ยนชื่อ-นามสกุล (ถ้ามี)",
+      "ประกาศนียบัตร/ใบรับรองการฝึกอบรมอื่น ๆ (ตามตำแหน่ง)",
+      "สำเนาสมุดบัญชีธนาคารกรุงเทพ (หน้าแรก)",
+      "ใบผ่านการเกณฑ์ทหาร สด.8 / สด.43 (สำหรับเพศชาย)",
+      "ใบอนุญาตขับขี่ (ถ้าตำแหน่งเกี่ยวข้องกับการขับรถ)",
+      "ใบตรวจประวัติอาชญากรรม"
+    ]
+  },
+  {
+    title: "เซ็นสัญญาจ้างงาน",
+    desc: "หลังได้รับแจ้งผลสัมภาษณ์ สามารถเข้ามาเซ็นสัญญาจ้างได้วันจันทร์–ศุกร์ เวลา 08:00–15:00 น. โดยกรอกแบบฟอร์มข้อมูลพนักงานให้ครบถ้วนก่อนเข้ามาดำเนินการ",
+    links: [
+      { label: "📑 แบบฟอร์มข้อมูลพนักงาน (สัญญาจ้างงาน)", url: "https://script.google.com/macros/s/AKfycbwnIuF5kjYOsBSLCAmkJ36jfomFQZcxrSSDwFSWVnP4Q3zQl9yvxUwhXhQUCaZ8FzBN/exec" }
+    ],
+    note: "เอกสารทุกอย่างต้องพร้อมและครบถ้วนก่อนวันเริ่มงาน · เมื่อข้อมูลครบถ้วนและยืนยันวันเริ่มงานแล้ว เจ้าหน้าที่จะแจ้งรหัสพนักงานในกลุ่มไลน์ (รหัสจะรันได้ก็ต่อเมื่อข้อมูลครบและยืนยันแล้วเท่านั้น)",
+    fields: [],
+    items: [
+      "กรอกแบบฟอร์มข้อมูลพนักงานให้ครบถ้วน",
+      "เตรียมเอกสารประกอบให้พร้อมก่อนเข้ามาเซ็นสัญญาจ้าง (จันทร์–ศุกร์ 08:00–15:00 น.)",
+      "รอรับแจ้งรหัสพนักงานผ่านกลุ่มไลน์จากเจ้าหน้าที่"
+    ]
+  },
+  {
+    title: "คู่มือ/เอกสารอ้างอิงสำหรับพนักงานใหม่",
+    desc: "แนะนำให้อ่านก่อนวันเริ่มงาน เพื่อทำความเข้าใจกฎระเบียบและระบบที่ใช้ในบริษัท",
+    links: [
+      { label: "📘 คู่มือพนักงานใหม่ โรงงานประเทศไทย", url: "https://anyflip.com/npqbq/cdyg/" },
+      { label: "📕 ข้อบังคับเกี่ยวกับการทำงาน", url: "https://anyflip.com/npqbq/ulhl/" },
+      { label: "💻 คู่มือการใช้งานระบบ ESS", url: "https://anyflip.com/npqbq/mjvl/" }
+    ],
+    note: "",
+    fields: [],
+    items: [
+      "อ่านคู่มือพนักงานใหม่",
+      "อ่านข้อบังคับเกี่ยวกับการทำงาน",
+      "ศึกษาวิธีใช้งานระบบ ESS"
+    ]
+  }
+];
+
+const container = document.getElementById('stepsContainer');
+const STORAGE_KEY = 'unitech-onboarding-checklist-v2';
+
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveState(state){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+let openSteps = new Set();
+
+function render(){
+  container.innerHTML = '';
+  STEPS.forEach((step, si) => {
+    const stepEl = document.createElement('div');
+    stepEl.className = 'step' + (openSteps.has(String(si)) ? ' open' : '');
+    stepEl.id = 'step-' + si;
+
+    const total = step.items.length;
+    const checkedCount = step.items.filter((_, ii) => state['s'+si+'i'+ii]).length;
+    const isDone = total > 0 && checkedCount === total;
+
+    const head = document.createElement('div');
+    head.className = 'step-head';
+    head.innerHTML = `
+      <div class="step-num">${si+1}</div>
+      <div class="step-title">
+        <h3>${step.title}</h3>
+        <span>${step.desc}</span>
+      </div>
+      <div class="step-badge ${isDone ? 'done' : ''}">${checkedCount}/${total} รายการ</div>
+      <div class="chevron">▾</div>
+    `;
+    head.addEventListener('click', () => {
+      stepEl.classList.toggle('open');
+      if(stepEl.classList.contains('open')) openSteps.add(String(si));
+      else openSteps.delete(String(si));
+    });
+
+    const body = document.createElement('div');
+    body.className = 'step-body';
+    const inner = document.createElement('div');
+    inner.className = 'step-body-inner';
+
+    if(step.links && step.links.length){
+      inner.innerHTML += `<div class="fields-title">ลิงก์ที่เกี่ยวข้อง</div>`;
+      const linkList = document.createElement('div');
+      linkList.className = 'link-list';
+      step.links.forEach(l => {
+        linkList.innerHTML += `<a class="link-btn" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`;
+      });
+      inner.appendChild(linkList);
+    }
+
+    if(step.note){
+      inner.innerHTML += `<div class="note-box">⚠️ ${step.note}</div>`;
+    }
+
+    if(step.fields.length){
+      inner.innerHTML += `<div class="fields-title">รายการตรวจสุขภาพที่จำเป็น</div>`;
+      step.fields.forEach(f => {
+        inner.innerHTML += `<div class="item"><label style="cursor:default">• ${f}</label></div>`;
+      });
+    }
+
+    inner.innerHTML += `<div class="fields-title">รายการตรวจสอบ</div>`;
+    step.items.forEach((item, ii) => {
+      const key = 's'+si+'i'+ii;
+      const checked = state[key] ? 'checked' : '';
+      inner.innerHTML += `
+        <div class="item">
+          <input type="checkbox" id="${key}" ${checked}>
+          <label for="${key}">${item}</label>
+        </div>
+      `;
+    });
+
+    body.appendChild(inner);
+    stepEl.appendChild(head);
+    stepEl.appendChild(body);
+    container.appendChild(stepEl);
+  });
+
+  container.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      state[cb.id] = cb.checked;
+      saveState(state);
+      render();
+      updateProgress();
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  let total = 0, done = 0;
+  STEPS.forEach((step, si) => {
+    step.items.forEach((_, ii) => {
+      total++;
+      if(state['s'+si+'i'+ii]) done++;
+    });
+  });
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '%';
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('ต้องการล้างเช็คลิสต์ทั้งหมดหรือไม่?')){
+    localStorage.removeItem(STORAGE_KEY);
+    state = {};
+    openSteps = new Set();
+    render();
+  }
+});
+
+render();
+</script>
+
+</body>
+</html>
