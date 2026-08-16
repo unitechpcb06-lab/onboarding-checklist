@@ -4,422 +4,725 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>เช็คลิสต์พนักงานใหม่ | Unitech PCB (Thailand) Co., Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --primary:#1e3a5f;
-    --primary-light:#2c5282;
-    --accent:#c9a227;
-    --bg:#f4f6f8;
-    --card:#ffffff;
-    --border:#e2e6ea;
-    --text:#1f2937;
-    --text-muted:#6b7280;
-    --success:#2f855a;
-    --success-bg:#e6f4ea;
-    --warn-bg:#fff7e6;
-    --warn-border:#f2c14e;
-    --warn-text:#8a5a00;
-    --radius:10px;
+    --navy:#1B3A5C;
+    --navy-dark:#12283F;
+    --ink:#26313F;
+    --cream:#F4F6F8;
+    --card:#FFFFFF;
+    --line:#E3E7EC;
+    --green:#1E8E5A;
+    --amber:#B4740E;
+    --copper:#1B3A5C;
+    --radius:14px;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    font-family:"Sarabun","Noto Sans Thai","Segoe UI",sans-serif;
-    background:var(--bg);
-    color:var(--text);
+    font-family:'Sarabun',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.kanit{font-family:'Kanit',sans-serif;}
+
+  /* Header banner */
+  .banner{
+    background:linear-gradient(180deg,var(--navy),var(--navy-dark));
+    color:#fff;
+    text-align:center;
+    padding:36px 20px 70px;
+  }
+  .banner .check{
+    width:48px;height:48px;
+    margin:0 auto 14px;
+    background:#2EA36C;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:24px;
+  }
+  .banner h1{
+    font-size:clamp(24px,5vw,30px);
+    font-weight:700;
+    margin:0 0 14px;
+    line-height:1.3;
+  }
+  .banner .sub{
+    font-size:15px;
+    opacity:.9;
+    margin:0 0 8px;
     line-height:1.6;
   }
-  header{
-    background:linear-gradient(135deg,var(--primary),var(--primary-light));
-    color:#fff;
-    padding:32px 24px 28px;
-    text-align:center;
+  .banner .zh{
+    font-size:14px;
+    opacity:.65;
+    margin-top:4px;
   }
-  header h1{margin:0 0 6px;font-size:1.5rem;font-weight:700;}
-  header p{margin:0;font-size:0.9rem;opacity:0.85;}
-  header .zh{font-size:0.82rem;opacity:0.7;margin-top:2px;}
 
-  .container{max-width:880px;margin:-20px auto 60px;padding:0 16px;}
+  .wrap{max-width:760px;margin:-46px auto 0;padding:0 16px 20px;position:relative;}
 
-  .card{
+  .top-card{
     background:var(--card);
+    border-radius:22px 22px 0 0;
+    padding:24px 18px 4px;
+    box-shadow:0 -4px 18px rgba(20,30,50,.06);
+  }
+
+  /* Info list */
+  .info-list{margin-bottom:6px;}
+  .info-row{
+    display:flex;
+    gap:14px;
+    padding:16px 2px;
+    border-bottom:1px dashed var(--line);
+  }
+  .info-row:last-child{border-bottom:none;}
+  .info-row .ico{font-size:20px;flex:none;width:28px;text-align:center;}
+  .info-row .label{
+    font-family:'Kanit',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    color:#5B6470;
+    min-width:120px;
+  }
+  .info-row .value{font-size:15px;line-height:1.5;font-weight:600;color:var(--ink);flex:1;}
+  .info-row.warn .value{color:var(--amber);}
+
+  /* Dress code */
+  .dress{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:24px;
+  }
+  @media (max-width:520px){.dress{grid-template-columns:1fr;}}
+  .dress .box{border-radius:var(--radius);padding:14px 16px;}
+  .dress .ok{background:#EFF8F1;border:1px solid #BFE3C9;}
+  .dress .no{background:#FDEFEF;border:1px solid #F3C3C3;}
+  .dress h3{margin:0 0 8px;font-size:15px;}
+  .dress ul{margin:0;padding-left:18px;font-size:14px;line-height:1.7;}
+
+  /* Section heading */
+  .section-title{
+    font-size:18px;
+    font-weight:700;
+    margin:28px 0 12px;
+    padding-bottom:6px;
+    border-bottom:3px solid #C9A24A;
+    display:inline-block;
+  }
+
+  /* Progress */
+  .progress-wrap{
+    background:var(--card);
+    border:1px solid var(--line);
     border-radius:var(--radius);
-    box-shadow:0 2px 10px rgba(0,0,0,0.06);
-    margin-bottom:20px;
+    padding:16px;
+    margin-bottom:22px;
+  }
+  .progress-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+    font-family:'Kanit',sans-serif;
+    font-weight:600;
+  }
+  .progress-top .pct{color:var(--copper);font-size:20px;}
+  .track{
+    height:10px;
+    border-radius:6px;
+    background:#EFEAE0;
     overflow:hidden;
   }
-
-  .info-banner{padding:22px 24px;}
-  .info-banner h2{margin:0 0 14px;font-size:1.05rem;color:var(--primary);}
-  .info-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:0.92rem;}
-  .info-row:last-child{border-bottom:none;}
-  .info-row .ico{flex-shrink:0;width:22px;text-align:center;}
-  .info-row .lbl{color:var(--text-muted);min-width:120px;flex-shrink:0;}
-  .info-row .val{font-weight:600;}
-
-  .dress-code{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
-  @media(max-width:600px){.dress-code{grid-template-columns:1fr;}}
-  .dress-col h4{margin:0 0 8px;font-size:0.88rem;}
-  .dress-col.ok h4{color:var(--success);}
-  .dress-col.no h4{color:#c0392b;}
-  .dress-col ul{margin:0;padding-left:20px;font-size:0.86rem;color:var(--text);}
-  .dress-col li{margin-bottom:3px;}
-
-  .candidate-info{padding:24px;}
-  .candidate-info h2{margin:0 0 16px;font-size:1.1rem;color:var(--primary);}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media(max-width:600px){.grid{grid-template-columns:1fr;}}
-  .field label{display:block;font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;}
-  .field input{
-    width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:6px;
-    font-family:inherit;font-size:0.95rem;
+  .fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--copper),var(--amber));
+    transition:width .35s ease;
   }
-  .field input:focus{outline:none;border-color:var(--primary-light);}
-
-  .progress-wrap{padding:18px 24px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--border);}
-  .progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:0.9rem;}
-  .progress-top strong{color:var(--primary);}
-  .bar{height:10px;background:#e5e9ed;border-radius:6px;overflow:hidden;}
-  .bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),#e0b830);width:0%;transition:width .3s ease;}
-
-  .step{border-bottom:1px solid var(--border);}
-  .step:last-child{border-bottom:none;}
-  .step-head{
-    display:flex;align-items:center;gap:14px;padding:18px 24px;cursor:pointer;user-select:none;
+  .reset-btn{
+    margin-top:12px;
+    font-family:'Kanit',sans-serif;
+    font-size:13px;
+    background:none;
+    border:1px solid var(--line);
+    color:#7A7566;
+    padding:6px 12px;
+    border-radius:8px;
+    cursor:pointer;
   }
-  .step-num{
-    width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;
+  .reset-btn:hover{background:#F2EEE3;}
+
+  /* Checklist items */
+  .checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .item{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--copper);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
   }
-  .step-head .step-title{flex:1;}
-  .step-title h3{margin:0;font-size:1.02rem;}
-  .step-title span{font-size:0.82rem;color:var(--text-muted);}
-  .step-badge{
-    font-size:0.78rem;padding:3px 10px;border-radius:999px;background:#eef1f4;color:var(--text-muted);white-space:nowrap;
+  .item.checked{border-left-color:var(--green);background:#F7FBF8;}
+  .item input[type=checkbox]{
+    appearance:none;
+    width:24px;height:24px;flex:none;
+    border:2px solid #C9C2B2;
+    border-radius:7px;
+    margin-top:2px;
+    cursor:pointer;
+    position:relative;
+    background:#fff;
   }
-  .step-badge.done{background:var(--success-bg);color:var(--success);}
-  .chevron{transition:transform .25s ease;color:var(--text-muted);font-size:1.1rem;}
-  .step.open .chevron{transform:rotate(180deg);}
-
-  .step-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
-  .step.open .step-body{max-height:3000px;}
-  .step-body-inner{padding:0 24px 22px 70px;}
-
-  .item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;}
-  .item input[type=checkbox]{margin-top:3px;width:17px;height:17px;accent-color:var(--primary);flex-shrink:0;}
-  .item label{font-size:0.93rem;cursor:pointer;}
-
-  .fields-title{font-size:0.85rem;font-weight:700;color:var(--primary);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.02em;}
-
-  .link-list{display:flex;flex-direction:column;gap:8px;margin:10px 0 16px;}
-  .link-btn{
-    display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;
-    background:#eaf1fb;color:var(--primary);text-decoration:none;font-size:0.9rem;font-weight:600;
-    border:1px solid #cfe0f3;width:fit-content;
+  .item input[type=checkbox]:checked{
+    background:var(--green);
+    border-color:var(--green);
   }
-  .link-btn:hover{background:#dbe8f8;}
+  .item input[type=checkbox]:checked::after{
+    content:"";
+    position:absolute;left:7px;top:3px;
+    width:6px;height:11px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .item .body{flex:1;}
+  .item .title{
+    font-family:'Kanit',sans-serif;
+    font-weight:600;
+    font-size:15.5px;
+    margin-bottom:4px;
+  }
+  .item .num{color:var(--copper);margin-right:4px;}
+  .item .note{font-size:13.5px;color:#5B5646;line-height:1.6;}
+  .item .note b{color:var(--navy);}
+  .item a.link-btn{
+    display:inline-block;
+    margin-top:8px;
+    font-family:'Kanit',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:#fff;
+    background:var(--navy);
+    padding:6px 14px;
+    border-radius:20px;
+    text-decoration:none;
+  }
+  .item a.link-btn:hover{background:#2A3252;}
 
-  .note-box{
-    background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn-text);
-    border-radius:8px;padding:10px 14px;font-size:0.86rem;margin:10px 0 4px;
+  /* Timeline (first day) */
+  .timeline{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .tl-row{
+    display:grid;
+    grid-template-columns:110px 1fr 90px;
+    gap:10px;
+    padding:12px 14px;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .tl-row:last-child{border-bottom:none;}
+  .tl-row.safety{background:#EFF8F1;}
+  .tl-row.checkin{background:#EAF1FB;}
+  .tl-time{font-family:'Kanit',sans-serif;font-weight:600;color:var(--navy);}
+  .tl-owner{
+    font-family:'Kanit',sans-serif;
+    font-size:12.5px;
+    text-align:right;
+    color:#7A7566;
+    align-self:center;
+  }
+  .tl-desc b{display:block;font-weight:600;}
+  .tl-desc span{font-size:12.5px;color:#7A7566;}
+  @media (max-width:520px){
+    .tl-row{grid-template-columns:80px 1fr;}
+    .tl-owner{grid-column:2;text-align:left;padding-top:2px;}
   }
 
-  .actions{
-    display:flex;gap:10px;justify-content:center;padding:8px 16px 40px;flex-wrap:wrap;
+  /* Salary card */
+  .salary-card{
+    background:linear-gradient(135deg,var(--navy),#232B4A);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:18px 20px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
   }
-  button.action-btn{
-    padding:11px 22px;border-radius:8px;border:none;font-size:0.92rem;font-weight:600;cursor:pointer;
-  }
-  .btn-primary{background:var(--primary);color:#fff;}
-  .btn-secondary{background:#fff;color:var(--primary);border:1px solid var(--primary);}
-  .btn-secondary:hover{background:#eef3f8;}
-  .btn-primary:hover{background:var(--primary-light);}
+  .salary-card .s-item{flex:1;min-width:150px;}
+  .salary-card .s-label{font-size:12.5px;opacity:.7;margin-bottom:4px;}
+  .salary-card .s-value{font-family:'Kanit',sans-serif;font-weight:700;font-size:17px;}
 
-  footer{text-align:center;font-size:0.8rem;color:var(--text-muted);padding:0 16px 30px;}
+  /* Benefits */
+  .benefits{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  @media (max-width:520px){.benefits{grid-template-columns:1fr;}}
+  .benefit{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    display:flex;
+    gap:10px;
+    font-size:14px;
+    line-height:1.55;
+  }
+  .benefit .ico{font-size:20px;flex:none;}
+  .benefit b{display:block;font-family:'Kanit',sans-serif;font-weight:600;font-size:14.5px;}
+
+  /* Work format */
+  .shift-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  @media (max-width:520px){.shift-grid{grid-template-columns:1fr;}}
+  .shift-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .shift-card h3{margin:0 0 8px;font-size:15px;}
+  .shift-card .tag{
+    display:inline-block;
+    font-family:'Kanit',sans-serif;
+    font-size:11.5px;
+    font-weight:600;
+    color:#fff;
+    background:var(--copper);
+    padding:2px 10px;
+    border-radius:10px;
+    margin-bottom:8px;
+  }
+  .shift-card ul{margin:8px 0 0;padding-left:18px;font-size:13.5px;line-height:1.7;}
+  .shift-card .times{font-size:13.5px;line-height:1.8;}
+  .shift-card .times b{color:var(--navy);}
+
+  .doc-list{
+    margin-top:12px;
+    background:#FAF7EF;
+    border:1px dashed #D9CEB3;
+    border-radius:10px;
+    padding:12px 14px;
+  }
+  .doc-list .doc-title{
+    font-family:'Kanit',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    color:var(--copper);
+    margin-bottom:6px;
+  }
+  .doc-list ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13.5px;
+    line-height:1.8;
+    color:#5B5646;
+    columns:1;
+  }
+  @media (min-width:600px){ .doc-list ul{columns:2; column-gap:20px;} }
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:#9A9484;
+    margin-top:32px;
+    padding:0 16px;
+  }
 </style>
 </head>
 <body>
 
-<header>
+<div class="banner">
+  <div class="check">✅</div>
   <h1>เช็คลิสต์เตรียมความพร้อมพนักงานใหม่</h1>
-  <p>Unitech PCB (Thailand) Co., Ltd. — สำหรับเจ้าหน้าที่สรรหา / พนักงานใหม่</p>
-  <div class="zh">燿華電子(泰國)有限公司</div>
-</header>
-
-<div class="container">
-
-  <div class="card info-banner">
-    <h2>ข้อมูลสำคัญ</h2>
-    <div class="info-row"><span class="ico">📍</span><span class="lbl">สถานที่ทำงาน</span><span class="val">เลขที่ 73 หมู่ 7 ต.ไชยภูมิ อ.ไชโย จ.อ่างทอง 14140</span></div>
-    <div class="info-row"><span class="ico">📅</span><span class="lbl">วันเริ่มงาน</span><span class="val">นัดเริ่มงานเฉพาะวันจันทร์และวันพฤหัสบดีเท่านั้น</span></div>
-    <div class="info-row"><span class="ico">⏰</span><span class="lbl">เวลารายงานตัว</span><span class="val">07:30–08:00 น. เท่านั้น</span></div>
-    <div class="info-row"><span class="ico">⚠️</span><span class="lbl">ข้อกำหนดเอกสาร</span><span class="val">เอกสารต้องครบทุกรายการ หากไม่ครบ เลื่อนเริ่มงานทุกกรณี</span></div>
-    <div class="info-row" style="border-bottom:none;flex-direction:column;">
-      <div style="display:flex;gap:12px;"><span class="ico">👔</span><span class="lbl" style="min-width:auto;">การแต่งกายมาสมัคร/รายงานตัว</span></div>
-      <div class="dress-code">
-        <div class="dress-col ok">
-          <h4>✅ เหมาะสม</h4>
-          <ul>
-            <li>เสื้อมีแขน สุภาพ</li>
-            <li>กางเกงขายาว หรือกระโปรงยาวสุภาพ</li>
-            <li>รองเท้าหุ้มส้น หรือรองเท้าผ้าใบ</li>
-            <li>ผมเรียบร้อย สะอาด</li>
-          </ul>
-        </div>
-        <div class="dress-col no">
-          <h4>❌ ไม่เหมาะสม</h4>
-          <ul>
-            <li>เสื้อกล้าม / เสื้อสายเดี่ยว / เปิดไหล่</li>
-            <li>กางเกงขาสั้น / กระโปรงสั้น</li>
-            <li>รองเท้าแตะ</li>
-            <li>เสื้อผ้ารัดรูป หรือลวดลายไม่สุภาพ</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="progress-wrap">
-      <div class="progress-top">
-        <span>ความคืบหน้าโดยรวม</span>
-        <strong id="progressText">0%</strong>
-      </div>
-      <div class="bar"><div class="bar-fill" id="progressBar"></div></div>
-    </div>
-    <div id="stepsContainer"></div>
-  </div>
-
-  <div class="actions">
-    <button class="action-btn btn-secondary" id="resetBtn">↺ ล้างเช็คลิสต์ทั้งหมด</button>
-  </div>
-
-  <footer>บันทึกความคืบหน้าอัตโนมัติในเบราว์เซอร์นี้ · ใช้สำหรับติดตามงานภายในทีมสรรหาเท่านั้น</footer>
+  <p class="sub">Unitech PCB (Thailand) Co., Ltd. — สำหรับเจ้าหน้าที่สรรหา / พนักงานใหม่</p>
+  <p class="zh">燿華電子（泰國）有限公司</p>
 </div>
 
-<script>
-const STEPS = [
-  {
-    title: "กรอกแบบฟอร์มข้อมูลพนักงานใหม่ (เบื้องต้น)",
-    desc: "กรอกข้อมูลเบื้องต้นด้วยตนเองผ่านลิงก์ออนไลน์ ก่อนดำเนินขั้นตอนอื่น ๆ (กรณีไม่สะดวกรับเอกสารที่บริษัท สามารถขอชื่อตำแหน่งและแผนกจากฝ่ายสรรหาได้)",
-    links: [
-      { label: "📝 แบบฟอร์มข้อมูลพนักงานใหม่", url: "https://unitechpcb06-lab.github.io/employee-form/" }
-    ],
-    note: "",
-    fields: [],
-    items: ["กรอกแบบฟอร์มข้อมูลพนักงานใหม่ให้ครบถ้วน"]
-  },
-  {
-    title: "ตรวจสุขภาพก่อนเข้าทำงาน",
-    desc: "เลือกได้ 2 ทาง — ตรวจที่โรงพยาบาลไชโย (ไม่เสียค่าใช้จ่าย) หรือตรวจโรงพยาบาลอื่นด้วยตนเอง",
-    links: [
-      { label: "📄 ใบส่งตัวตรวจสุขภาพ รพ.ไชโย (ยื่นตรวจได้ฟรี ไม่เสียค่าใช้จ่าย)", url: "https://script.google.com/macros/s/AKfycbw1xycyIGUCWiFaXxn_tl8jK4NmNW-7TSkRlJZTA_Aza8RQ9pBjpMcrUEslAe3xC29SIA/exec?page=health" },
-      { label: "🏥 กรอกข้อมูลผู้เข้าตรวจ (รพ.ไชโยขอข้อมูลล่วงหน้า)", url: "https://docs.google.com/forms/d/e/1FAIpQLSeAUeYafd3HLLVF-MtXZlUcNHAc1BM1TOUk2aphd7-GWzjK-Q/viewform?usp=header" }
-    ],
-    note: "ลิงก์ทั้ง 2 ด้านบนใช้เฉพาะผู้ที่เลือกตรวจที่ รพ.ไชโย เท่านั้น · หากตรวจที่โรงพยาบาลอื่น ไม่ต้องใช้ลิงก์ใด ๆ เพียงตรวจให้ครบตามรายการที่จำเป็นด้านล่าง สำรองจ่ายเอง แล้วบริษัทจะคืนเงินค่าตรวจ 440 บาท ในงวดเงินเดือนถัดไป · ใบรับรองแพทย์/ผลตรวจต้องออกภายใน 1 เดือนก่อนวันเริ่มงาน",
-    fields: [
-      "ตรวจร่างกายทั่วไป (Physical Examination)",
-      "ตรวจปัสสาวะทั่วไป (Urinalysis)",
-      "เอกซเรย์ทรวงอก (Chest X-ray)",
-      "ตรวจสารเสพติด (Drug Screening)",
-      "ตรวจความสมบูรณ์ของเม็ดเลือด (CBC)"
-    ],
-    items: [
-      "เลือกโรงพยาบาลตรวจสุขภาพ (รพ.ไชโย หรือโรงพยาบาลอื่น)",
-      "หากเลือก รพ.ไชโย: โหลดใบส่งตัว และกรอกข้อมูลผู้เข้าตรวจให้ครบทั้ง 2 ลิงก์",
-      "หากเลือกโรงพยาบาลอื่น: ตรวจให้ครบตามรายการที่จำเป็น แล้วสำรองจ่ายเอง",
-      "รับผลตรวจสุขภาพ/ใบรับรองแพทย์ตัวจริง"
-    ]
-  },
-  {
-    title: "เปิดบัญชีธนาคารกรุงเทพ (รับเงินเดือน)",
-    desc: "เปิดบัญชีออนไลน์ผ่านลิงก์ หรือเปิดที่สาขาอ่างทองหากไม่สะดวกเปิดออนไลน์",
-    links: [
-      { label: "🏦 ใบเปิดบัญชีธนาคารกรุงเทพ", url: "https://script.google.com/macros/s/AKfycbw1xycyIGUCWiFaXxn_tl8jK4NmNW-7TSkRlJZTA_Aza8RQ9pBjpMcrUEslAe3xC29SIA/exec?page=bank" },
-      { label: "🎥 วิธีเปิดบัญชีออนไลน์ (คลิปวิดีโอ)", url: "https://www.facebook.com/share/19oW8x7PAx/?mibextid=wwXIfr" }
-    ],
-    note: "กรณีไม่สะดวกเปิดออนไลน์ สามารถไปเปิดบัญชีที่สาขาอ่างทองได้",
-    fields: [],
-    items: [
-      "กรอกแบบฟอร์ม/เปิดบัญชีธนาคารกรุงเทพ",
-      "เตรียมสำเนาสมุดบัญชีหน้าแรกไว้ยื่นวันรายงานตัว"
-    ]
-  },
-  {
-    title: "เตรียมเอกสารมารายงานตัววันแรก",
-    desc: "พนักงานต้องมารายงานตัว เวลา 07:30–08:00 น. เท่านั้น เอกสารต้องครบทุกรายการ หากไม่ครบ เลื่อนเริ่มงานทุกกรณี (กรณีเคยมาเขียนใบสมัครแล้ว สามารถใช้เอกสารชุดเดิมได้)",
-    links: [
-      { label: "🔎 ตรวจสอบ/ขอประวัติอาชญากรรม", url: "https://crd.go.th/bg/landing" }
-    ],
-    note: "ใบตรวจประวัติอาชญากรรมใช้เวลาดำเนินการประมาณ 7 วัน ควรยื่นล่วงหน้า · หากพบว่ามีประวัติ จะไม่รับเข้าทำงานทุกกรณี",
-    fields: [],
-    items: [
-      "สำเนาบัตรประชาชน (รับรองสำเนาถูกต้อง) 1 ฉบับ",
-      "สำเนาทะเบียนบ้าน 1 ฉบับ",
-      "รูปถ่ายหน้าตรง ขนาด 1 นิ้ว 2 รูป",
-      "วุฒิการศึกษา หรือ Transcript 1 ฉบับ",
-      "หนังสือรับรองการทำงานจากที่เดิม (ถ้ามี — เฉพาะผู้มีประสบการณ์ธุรกิจใกล้เคียง)",
-      "ใบรับรองแพทย์ตัวจริง/ผลตรวจสุขภาพ (ออกภายใน 1 เดือน)",
-      "ใบเปลี่ยนชื่อ-นามสกุล (ถ้ามี)",
-      "ประกาศนียบัตร/ใบรับรองการฝึกอบรมอื่น ๆ (ตามตำแหน่ง)",
-      "สำเนาสมุดบัญชีธนาคารกรุงเทพ (หน้าแรก)",
-      "ใบผ่านการเกณฑ์ทหาร สด.8 / สด.43 (สำหรับเพศชาย)",
-      "ใบอนุญาตขับขี่ (ถ้าตำแหน่งเกี่ยวข้องกับการขับรถ)",
-      "ใบตรวจประวัติอาชญากรรม"
-    ]
-  },
-  {
-    title: "เซ็นสัญญาจ้างงาน",
-    desc: "หลังได้รับแจ้งผลสัมภาษณ์ สามารถเข้ามาเซ็นสัญญาจ้างได้วันจันทร์–ศุกร์ เวลา 08:00–15:00 น. โดยกรอกแบบฟอร์มข้อมูลพนักงานให้ครบถ้วนก่อนเข้ามาดำเนินการ",
-    links: [
-      { label: "📑 แบบฟอร์มข้อมูลพนักงาน (สัญญาจ้างงาน)", url: "https://script.google.com/macros/s/AKfycbwnIuF5kjYOsBSLCAmkJ36jfomFQZcxrSSDwFSWVnP4Q3zQl9yvxUwhXhQUCaZ8FzBN/exec" }
-    ],
-    note: "เอกสารทุกอย่างต้องพร้อมและครบถ้วนก่อนวันเริ่มงาน · เมื่อข้อมูลครบถ้วนและยืนยันวันเริ่มงานแล้ว เจ้าหน้าที่จะแจ้งรหัสพนักงานในกลุ่มไลน์ (รหัสจะรันได้ก็ต่อเมื่อข้อมูลครบและยืนยันแล้วเท่านั้น)",
-    fields: [],
-    items: [
-      "กรอกแบบฟอร์มข้อมูลพนักงานให้ครบถ้วน",
-      "เตรียมเอกสารประกอบให้พร้อมก่อนเข้ามาเซ็นสัญญาจ้าง (จันทร์–ศุกร์ 08:00–15:00 น.)",
-      "รอรับแจ้งรหัสพนักงานผ่านกลุ่มไลน์จากเจ้าหน้าที่"
-    ]
-  },
-  {
-    title: "คู่มือ/เอกสารอ้างอิงสำหรับพนักงานใหม่",
-    desc: "แนะนำให้อ่านก่อนวันเริ่มงาน เพื่อทำความเข้าใจกฎระเบียบและระบบที่ใช้ในบริษัท",
-    links: [
-      { label: "📘 คู่มือพนักงานใหม่ โรงงานประเทศไทย", url: "https://anyflip.com/npqbq/cdyg/" },
-      { label: "📕 ข้อบังคับเกี่ยวกับการทำงาน", url: "https://anyflip.com/npqbq/ulhl/" },
-      { label: "💻 คู่มือการใช้งานระบบ ESS", url: "https://anyflip.com/npqbq/mjvl/" }
-    ],
-    note: "",
-    fields: [],
-    items: [
-      "อ่านคู่มือพนักงานใหม่",
-      "อ่านข้อบังคับเกี่ยวกับการทำงาน",
-      "ศึกษาวิธีใช้งานระบบ ESS"
-    ]
-  }
-];
+<div class="wrap">
+<div class="top-card">
 
-const container = document.getElementById('stepsContainer');
-const STORAGE_KEY = 'unitech-onboarding-checklist-v2';
+  <h2 class="section-title" style="margin-top:0;">ข้อมูลสำคัญ</h2>
+  <div class="info-list">
+    <div class="info-row">
+      <div class="ico">📍</div>
+      <div class="label">สถานที่ทำงาน</div>
+      <div class="value">เลขที่ 73 หมู่ 7 ต.ไชยภูมิ อ.ไชโย จ.อ่างทอง 14140</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">📅</div>
+      <div class="label">วันเริ่มงาน</div>
+      <div class="value">นัดเริ่มงานเฉพาะวันจันทร์และวันพฤหัสบดีเท่านั้น</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">⏰</div>
+      <div class="label">เวลารายงานตัว</div>
+      <div class="value">07:30–08:00 น. เท่านั้น</div>
+    </div>
+    <div class="info-row warn">
+      <div class="ico">⚠️</div>
+      <div class="label">ข้อกำหนดเอกสาร</div>
+      <div class="value">เอกสารต้องครบทุกรายการ หากไม่ครบ เลื่อนเริ่มงานทุกกรณี</div>
+    </div>
+  </div>
 
-function loadState(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ return {}; }
-}
-function saveState(state){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
+  <h2 class="section-title">👔 การแต่งกาย มาสมัคร / รายงานตัว</h2>
+  <div class="dress">
+    <div class="box ok">
+      <h3>✅ เหมาะสม</h3>
+      <ul>
+        <li>เสื้อมีแขน สุภาพ</li>
+        <li>กางเกงขายาว หรือกระโปรงยาวสุภาพ</li>
+        <li>รองเท้าหุ้มส้น หรือรองเท้าผ้าใบ</li>
+        <li>ผมเรียบร้อย สะอาด</li>
+      </ul>
+    </div>
+    <div class="box no">
+      <h3>❌ ไม่เหมาะสม</h3>
+      <ul>
+        <li>เสื้อกล้าม / เสื้อสายเดี่ยว / เปิดไหล่</li>
+        <li>กางเกงขาสั้น / กระโปรงสั้น</li>
+        <li>รองเท้าแตะ (อนุโลมเฉพาะวันฝนตก)</li>
+        <li>เสื้อผ้ารัดรูป หรือลวดลายไม่สุภาพ</li>
+      </ul>
+    </div>
+  </div>
 
-let state = loadState();
-let openSteps = new Set();
+  <h2 class="section-title">ℹ️ ข้อควรทราบเพิ่มเติม</h2>
+  <div class="info-list" style="margin-bottom:22px;">
+    <div class="info-row">
+      <div class="ico">🔑</div>
+      <div class="label">การรับกุญแจล็อกเกอร์</div>
+      <div class="value">แบ่งตามทิศที่นำรถมา — <b>ทิศเหนือ</b> ฝั่งจอดรถมอเตอร์ไซค์ · <b>ทิศตะวันตก</b> ฝั่งจอดรถยนต์ · ท่านใดนำรถมามากกว่า 1 ประเภท ให้แจ้งว่ามาจากทิศไหน เพื่อความสะดวกในการรับกุญแจ</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">🕌</div>
+      <div class="label">พนักงานศาสนาอิสลาม</div>
+      <div class="value">ต้องแจ้งเจ้าหน้าที่สรรหาในวันเซ็นสัญญาจ้าง</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">🔒</div>
+      <div class="label">กุญแจล็อกเกอร์หาย</div>
+      <div class="value">นำเงินสด <b>200 บาท</b> มารับกุญแจที่ <b>ชั้น 3 ห้อง GA</b> เพื่อนำไปปั๊มกุญแจใหม่ เมื่อนำกุญแจมาคืนจะได้รับเงิน 200 บาทคืน</div>
+    </div>
+    <div class="info-row warn">
+      <div class="ico">📵</div>
+      <div class="label">โทรศัพท์มือถือ (รายวัน)</div>
+      <div class="value">ห้ามนำโทรศัพท์เข้าไปในโรงงานเด็ดขาด หากไม่ได้รับอนุญาต บริษัทขอความร่วมมือ</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">🪪</div>
+      <div class="label">บัตรพนักงาน</div>
+      <div class="value">พนักงานทุกท่านต้องติดบัตรพนักงานทุกครั้ง ทั้งเข้าและออกโรงงาน</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">🚗</div>
+      <div class="label">ความปลอดภัย — รถยนต์</div>
+      <div class="value">ท่านใดนำรถยนต์มา ให้เปิดกระจกรถลง และให้ความร่วมมือกับเจ้าหน้าที่ รปภ. เพื่อความปลอดภัยของทุกคน</div>
+    </div>
+  </div>
 
-function render(){
-  container.innerHTML = '';
-  STEPS.forEach((step, si) => {
-    const stepEl = document.createElement('div');
-    stepEl.className = 'step' + (openSteps.has(String(si)) ? ' open' : '');
-    stepEl.id = 'step-' + si;
+  <h2 class="section-title">📋 เอกสาร/ลิงก์ ที่ต้องดำเนินการก่อนวันเริ่มงาน</h2>
 
-    const total = step.items.length;
-    const checkedCount = step.items.filter((_, ii) => state['s'+si+'i'+ii]).length;
-    const isDone = total > 0 && checkedCount === total;
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span>ความคืบหน้าโดยรวม</span>
+      <span class="pct" id="pctLabel">0%</span>
+    </div>
+    <div class="track"><div class="fill" id="fillBar"></div></div>
+    <button class="reset-btn" id="resetBtn">↺ ล้างเช็คลิสต์ทั้งหมด</button>
+  </div>
 
-    const head = document.createElement('div');
-    head.className = 'step-head';
-    head.innerHTML = `
-      <div class="step-num">${si+1}</div>
-      <div class="step-title">
-        <h3>${step.title}</h3>
-        <span>${step.desc}</span>
+  <ul class="checklist" id="checklist">
+    <li class="item" data-key="c1">
+      <input type="checkbox">
+      <div class="body">
+        <div class="title"><span class="num">1.</span>กรอกข้อมูลสัญญาจ้าง</div>
+        <div class="note">กรอกผ่านลิงก์ที่ HR จัดส่งให้<br>หลังได้รับแจ้งผลสัมภาษณ์ สามารถเข้ามาเซ็นสัญญาจ้างได้ <b>วันจันทร์–ศุกร์ เวลา 08:00–15:00 น.</b> โดยกรอกแบบฟอร์มข้อมูลพนักงานให้ครบถ้วนก่อนเข้ามาดำเนินการ</div>
+        <a class="link-btn" href="https://script.google.com/macros/s/AKfycbwnIuF5kjYOsBSLCAmkJ36jfomFQZcxrSSDwFSWVnP4Q3zQl9yvxUwhXhQUCaZ8FzBN/exec" target="_blank" rel="noopener">เปิดลิงก์กรอกสัญญาจ้าง</a>
       </div>
-      <div class="step-badge ${isDone ? 'done' : ''}">${checkedCount}/${total} รายการ</div>
-      <div class="chevron">▾</div>
-    `;
-    head.addEventListener('click', () => {
-      stepEl.classList.toggle('open');
-      if(stepEl.classList.contains('open')) openSteps.add(String(si));
-      else openSteps.delete(String(si));
-    });
+    </li>
 
-    const body = document.createElement('div');
-    body.className = 'step-body';
-    const inner = document.createElement('div');
-    inner.className = 'step-body-inner';
-
-    if(step.links && step.links.length){
-      inner.innerHTML += `<div class="fields-title">ลิงก์ที่เกี่ยวข้อง</div>`;
-      const linkList = document.createElement('div');
-      linkList.className = 'link-list';
-      step.links.forEach(l => {
-        linkList.innerHTML += `<a class="link-btn" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`;
-      });
-      inner.appendChild(linkList);
-    }
-
-    if(step.note){
-      inner.innerHTML += `<div class="note-box">⚠️ ${step.note}</div>`;
-    }
-
-    if(step.fields.length){
-      inner.innerHTML += `<div class="fields-title">รายการตรวจสุขภาพที่จำเป็น</div>`;
-      step.fields.forEach(f => {
-        inner.innerHTML += `<div class="item"><label style="cursor:default">• ${f}</label></div>`;
-      });
-    }
-
-    inner.innerHTML += `<div class="fields-title">รายการตรวจสอบ</div>`;
-    step.items.forEach((item, ii) => {
-      const key = 's'+si+'i'+ii;
-      const checked = state[key] ? 'checked' : '';
-      inner.innerHTML += `
-        <div class="item">
-          <input type="checkbox" id="${key}" ${checked}>
-          <label for="${key}">${item}</label>
+    <li class="item" data-key="c2">
+      <input type="checkbox">
+      <div class="body">
+        <div class="title"><span class="num">2.</span>กรอกประวัติอาชญากรรม</div>
+        <div class="note">
+          ไม่ต้องนำผลมาในวันเริ่มงาน <b>รอผล 7–14 วัน</b> สามารถขอรับผลผ่านอีเมลได้ภายหลัง<br>
+          หากให้เอกสารไว้ครบแล้วตอนวันสมัครงาน ไม่ต้องนำมาอีก
         </div>
-      `;
-    });
+        <a class="link-btn" href="https://crd.go.th/crd-service-1/" target="_blank" rel="noopener">เปิดลิงก์กรอกประวัติ</a>
 
-    body.appendChild(inner);
-    stepEl.appendChild(head);
-    stepEl.appendChild(body);
-    container.appendChild(stepEl);
-  });
+        <div class="doc-list">
+          <div class="doc-title">📎 รายการตรวจสอบ — เอกสารที่ต้องเตรียมมาในวันเซ็นสัญญาจ้าง</div>
+          <ul>
+            <li>สำเนาบัตรประชาชน (รับรองสำเนาถูกต้อง) 1 ฉบับ</li>
+            <li>สำเนาทะเบียนบ้าน 1 ฉบับ</li>
+            <li>รูปถ่ายหน้าตรง ขนาด 1 นิ้ว 2 รูป</li>
+            <li>วุฒิการศึกษา หรือ Transcript 1 ฉบับ</li>
+            <li>หนังสือรับรองการทำงานจากที่เดิม (ถ้ามี — เฉพาะผู้มีประสบการณ์ธุรกิจใกล้เคียง)</li>
+            <li>ใบรับรองแพทย์ตัวจริง/ผลตรวจสุขภาพ (ออกภายใน 1 เดือน)</li>
+            <li>ใบเปลี่ยนชื่อ-นามสกุล (ถ้ามี)</li>
+            <li>ประกาศนียบัตร/ใบรับรองการฝึกอบรมอื่น ๆ (ตามตำแหน่ง)</li>
+            <li>สำเนาสมุดบัญชีธนาคารกรุงเทพ (หน้าแรก)</li>
+            <li>ใบผ่านการเกณฑ์ทหาร สด.8 / สด.43 (สำหรับเพศชาย)</li>
+            <li>ใบอนุญาตขับขี่ (ถ้าตำแหน่งเกี่ยวข้องกับการขับรถ)</li>
+            <li>ใบตรวจประวัติอาชญากรรม</li>
+          </ul>
+        </div>
+      </div>
+    </li>
 
-  container.querySelectorAll('input[type=checkbox]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      state[cb.id] = cb.checked;
-      saveState(state);
-      render();
+    <li class="item" data-key="c3">
+      <input type="checkbox">
+      <div class="body">
+        <div class="title"><span class="num">3.</span>ตรวจสุขภาพก่อนเข้าทำงาน</div>
+        <div class="note">เลือกได้ 2 ทาง — ตรวจที่ <b>โรงพยาบาลไชโย</b> (ไม่เสียค่าใช้จ่าย) หรือตรวจโรงพยาบาลอื่นด้วยตนเอง</div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+          <a class="link-btn" href="https://script.google.com/macros/s/AKfycbw1xycyIGUCWiFaXxn_tl8jK4NmNW-7TSkRlJZTA_Aza8RQ9pBjpMcrUEslAe3xC29SIA/exec?page=health" target="_blank" rel="noopener">ใบส่งตัวตรวจสุขภาพ รพ.ไชโย</a>
+          <a class="link-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeAUeYafd3HLLVF-MtXZlUcNHAc1BM1TOUk2aphd7-GWzjK-Q/viewform" target="_blank" rel="noopener">กรณีไม่ต้องสำรองเงินจ่าย (รพ.ไชโย)</a>
+        </div>
+
+        <div class="doc-list">
+          <div class="doc-title">⚠️ ข้อควรทราบ</div>
+          <ul style="columns:1;">
+            <li>ลิงก์ทั้งหมดด้านบนใช้เฉพาะผู้ที่เลือกตรวจที่ รพ.ไชโย เท่านั้น</li>
+            <li>หากไปตรวจโรงพยาบาลอื่น ไม่ต้องใช้ลิงก์ใด ๆ เพียงตรวจให้ครบตามรายการที่จำเป็นด้านล่าง สำรองจ่ายเอง แล้วบริษัทจะคืนเงินค่าตรวจ <b>440 บาท</b> ในงวดเงินเดือนถัดไป</li>
+            <li>ใบรับรองแพทย์/ผลตรวจต้องออกภายใน <b>1 เดือนก่อนวันเริ่มงาน</b></li>
+            <li>ใบส่งตัวสามารถนำไปปริ้นเองหรือมารับที่ฝ่ายบุคคลได้</li>
+          </ul>
+        </div>
+
+        <div class="doc-list">
+          <div class="doc-title">📋 รายการตรวจสุขภาพที่จำเป็น</div>
+          <ul>
+            <li>ตรวจร่างกายทั่วไป (Physical Examination)</li>
+            <li>ตรวจปัสสาวะทั่วไป (Urinalysis)</li>
+            <li>เอกซเรย์ทรวงอก (Chest X-ray)</li>
+            <li>ตรวจสารเสพติด (Drug Screening)</li>
+            <li>ตรวจความสมบูรณ์ของเม็ดเลือด (CBC)</li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+    <li class="item" data-key="c4">
+      <input type="checkbox">
+      <div class="body">
+        <div class="title"><span class="num">4.</span>เปิดบัญชีธนาคาร</div>
+        <div class="note">เปิดได้เฉพาะ <b>ธนาคารกรุงเทพ สาขาอ่างทอง</b> เท่านั้น</div>
+        <a class="link-btn" href="https://script.google.com/macros/s/AKfycbw1xycyIGUCWiFaXxn_tl8jK4NmNW-7TSkRlJZTA_Aza8RQ9pBjpMcrUEslAe3xC29SIA/exec?page=bank" target="_blank" rel="noopener">เปิดรายการเปิดบัญชี</a>
+      </div>
+    </li>
+
+    <li class="item" data-key="c5">
+      <input type="checkbox">
+      <div class="body">
+        <div class="title"><span class="num">5.</span>แบบฟอร์มพนักงานใหม่</div>
+        <div class="note"><b>ต้องกรอกให้เสร็จก่อนวันเริ่มงาน</b></div>
+        <a class="link-btn" href="https://unitechpcb06-lab.github.io/employee-form/" target="_blank" rel="noopener">เปิดแบบฟอร์มพนักงานใหม่</a>
+      </div>
+    </li>
+
+    <li class="item" data-key="c6">
+      <input type="checkbox">
+      <div class="body">
+        <div class="title"><span class="num">📖</span>คู่มือพนักงานใหม่</div>
+        <div class="note">อ่านก่อนวันเริ่มงาน เพื่อเตรียมตัวให้พร้อม</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+          <a class="link-btn" href="https://online.anyflip.com/npqbq/ulhl/mobile/index.html" target="_blank" rel="noopener">ข้อบังคับเกี่ยวกับการทำงาน</a>
+          <a class="link-btn" href="https://online.anyflip.com/npqbq/mjvl/mobile/index.html" target="_blank" rel="noopener">คู่มือการใช้งานระบบ ESS</a>
+          <a class="link-btn" href="https://online.anyflip.com/npqbq/cdyg/mobile/index.html" target="_blank" rel="noopener">คู่มือพนักงานใหม่</a>
+        </div>
+        <div class="note" style="margin-top:8px;">⚠️ คู่มือพนักงานใหม่: เวลาการทำงานในคู่มือยังไม่ถูกเปลี่ยน โปรดอ้างอิงเวลาตามที่เจ้าหน้าที่สรรหาแจ้งในใบ Offer พนักงาน</div>
+      </div>
+    </li>
+  </ul>
+
+  <h2 class="section-title">🗓️ วันแรกที่มาเริ่มงาน (อบรมเต็มวัน)</h2>
+  <div class="timeline">
+    <div class="tl-row checkin">
+      <div class="tl-time">08:00–08:30</div>
+      <div class="tl-desc"><b>รายงานตัว · ยืนยันประตูเข้า-ออก · รับกุญแจล็อกเกอร์ · รับรองเท้าเซฟตี้</b><span>Report in · locker key · safety shoes</span></div>
+      <div class="tl-owner">GA / พนักงานใหม่</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">08:30–09:00</div>
+      <div class="tl-desc"><b>ตรวจสอบข้อมูล/เอกสาร · นำของไปเก็บที่ล็อกเกอร์ · รับปลอกแขนและบัตรพนักงาน</b><span>Document check · locker · employee badge</span></div>
+      <div class="tl-owner">HR</div>
+    </div>
+    <div class="tl-row safety">
+      <div class="tl-time">09:00–12:00</div>
+      <div class="tl-desc"><b>อบรมความปลอดภัยสำหรับพนักงานใหม่</b><span>Safety training</span></div>
+      <div class="tl-owner">Safety</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">12:00–12:40</div>
+      <div class="tl-desc"><b>พักเที่ยง รับประทานอาหาร</b><span>Lunch break</span></div>
+      <div class="tl-owner">HR</div>
+    </div>
+    <div class="tl-row safety">
+      <div class="tl-time">12:40–16:40</div>
+      <div class="tl-desc"><b>อบรมความปลอดภัยสำหรับพนักงานใหม่ (ต่อ)</b><span>Safety training (cont.)</span></div>
+      <div class="tl-owner">Safety</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">16:40–17:20</div>
+      <div class="tl-desc"><b>แนะนำบริษัท กฎระเบียบ การลงเวลา · ข้อกำหนด RBA สวัสดิการ สิทธิการลา</b><span>Company intro · RBA · benefits</span></div>
+      <div class="tl-owner">HR</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">💰 การจ่ายเงินเดือน</h2>
+  <div class="salary-card">
+    <div class="s-item">
+      <div class="s-label">รอบคำนวณเงินเดือน</div>
+      <div class="s-value">วันที่ 1 – สิ้นเดือน</div>
+    </div>
+    <div class="s-item">
+      <div class="s-label">วันจ่ายเงินเดือน</div>
+      <div class="s-value">ทุกวันที่ 10 ของเดือน</div>
+    </div>
+    <div class="s-item">
+      <div class="s-label">ช่องทางจ่าย</div>
+      <div class="s-value">ธนาคารกรุงเทพ</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🎁 สวัสดิการพนักงาน</h2>
+  <div class="benefits">
+    <div class="benefit"><span class="ico">1️⃣</span><div><b>เงินเดือน</b>ตามตกลง (รายวัน / รายเดือน)</div></div>
+    <div class="benefit"><span class="ico">2️⃣</span><div><b>ค่าล่วงเวลา (OT)</b>ตามกฎหมายแรงงาน</div></div>
+    <div class="benefit"><span class="ico">3️⃣</span><div><b>ค่าเบี้ยเลี้ยงกะ</b>🌙 กะดึก 80 บาท/วัน (รายวัน) · 🌆 กะบ่าย–ดึก 100 บาท/วัน (รายเดือน)</div></div>
+    <div class="benefit"><span class="ico">4️⃣</span><div><b>ค่าเดินทาง</b>30 บาท/วันทำงาน · ค่าที่พัก 30 บาท/วันทำงาน (กรณีไม่ได้พักหอพักบริษัท)</div></div>
+    <div class="benefit"><span class="ico">5️⃣</span><div><b>หอพักบริษัท</b>มีแล้ว ห้องละ 4 คน (รถรับส่งพนักงาน ปัจจุบันยังไม่มีนโยบายนี้)</div></div>
+    <div class="benefit"><span class="ico">6️⃣</span><div><b>อาหารกลางวันฟรี</b>1 มื้อ · OT ตั้งแต่ 2 ชม. ขึ้นไป เพิ่มอีก 1 มื้อ</div></div>
+    <div class="benefit"><span class="ico">7️⃣</span><div><b>ชุดยูนิฟอร์ม</b>ครบ 1 เดือน แจก 2 ชุด ทุกวันพุธ 09:00–09:30 ชั้น 4</div></div>
+    <div class="benefit"><span class="ico">8️⃣</span><div><b>ประกันสังคม</b></div></div>
+    <div class="benefit"><span class="ico">9️⃣</span><div><b>วันลาพักร้อน</b>6 วัน/ปี และสิทธิ์ลาตามกฎหมายแรงงาน</div></div>
+    <div class="benefit"><span class="ico">🔟</span><div><b>วันหยุด</b>นักขัตฤกษ์และวันหยุดประเพณีตามกฎหมาย</div></div>
+    <div class="benefit" style="grid-column:1/-1;"><span class="ico">1️⃣1️⃣</span><div><b>อบรมและกิจกรรมสันทนาการ</b>อบรมพัฒนาความรู้ และกิจกรรมสันทนาการ</div></div>
+  </div>
+
+  <h2 class="section-title">🏭 รูปแบบการทำงาน</h2>
+  <div class="shift-grid">
+    <div class="shift-card">
+      <span class="tag">Office (IDL)</span>
+      <h3>💼 ฝ่ายสำนักงาน</h3>
+      <div class="times">
+        <b>กะเช้า</b> 08:00–16:40<br>
+        <b>กะบ่าย</b> 16:00–00:40<br>
+        <b>กะดึก</b> 00:00–08:40
+      </div>
+      <ul>
+        <li>ทำงานเป็นกะ (เช้า / บ่าย / ดึก)</li>
+        <li>วันหยุดหมุนเวียน เช่น เสาร์เว้นเสาร์ หรืออาทิตย์เว้นอาทิตย์</li>
+        <li>บริษัทเป็นผู้กำหนดตารางงาน</li>
+      </ul>
+    </div>
+    <div class="shift-card">
+      <span class="tag">Production (DL)</span>
+      <h3>🏭 ฝ่ายผลิต</h3>
+      <div class="times">
+        <b>กะเช้า</b> 08:00–17:20<br>
+        <b>กะดึก</b> 20:00–05:20<br>
+        <span style="color:#7A7566;">(ก่อนเริ่มทำ OT พัก 40 นาที)</span>
+      </div>
+      <ul>
+        <li>ทำงาน 6 วัน หยุด 1 วัน</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="section-title">⏱️ เวลาพัก และประตูทางเข้า</h2>
+  <div class="info-list" style="margin-bottom:6px;">
+    <div class="info-row">
+      <div class="ico">🍽️</div>
+      <div class="label">รายเดือน</div>
+      <div class="value">พักทานข้าว 40 นาที + ระหว่างวัน 10 นาที 2 ครั้ง</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">🍽️</div>
+      <div class="label">พักระหว่างวัน (เพิ่มเติม)</div>
+      <div class="value">พักทานข้าว 40 นาที + ระหว่างวัน 20 นาที 2 ครั้ง ตามที่หัวหน้างานจัดสรร</div>
+    </div>
+    <div class="info-row">
+      <div class="ico">🚪</div>
+      <div class="label">ประตูหน้าโรงงาน</div>
+      <div class="value">เปิดช่วงพักเที่ยง <b>11:40–12:40 น.</b> เท่านั้น นอกเวลานี้ปิดตามเวลาปกติ</div>
+    </div>
+  </div>
+
+</div><!-- /.top-card -->
+
+  <footer>
+    บันทึกความคืบหน้าอัตโนมัติในเบราว์เซอร์นี้ · ใช้สำหรับติดตามงานภายในทีมสรรหาเท่านั้น
+  </footer>
+</div><!-- /.wrap -->
+
+<script>
+  const STORAGE_KEY = 'unitech_onboarding_checklist_v2';
+  const boxes = document.querySelectorAll('.checklist input[type=checkbox]');
+  const fillBar = document.getElementById('fillBar');
+  const pctLabel = document.getElementById('pctLabel');
+
+  function loadState(){
+    try{
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    }catch(e){ return {}; }
+  }
+  function saveState(state){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+  function updateProgress(){
+    const total = boxes.length;
+    const checked = document.querySelectorAll('.checklist input[type=checkbox]:checked').length;
+    const pct = total ? Math.round((checked/total)*100) : 0;
+    fillBar.style.width = pct + '%';
+    pctLabel.textContent = pct + '%';
+  }
+  function applyItemStyle(box){
+    const item = box.closest('.item');
+    item.classList.toggle('checked', box.checked);
+  }
+
+  const state = loadState();
+  boxes.forEach(box=>{
+    const key = box.closest('.item').dataset.key;
+    box.checked = !!state[key];
+    applyItemStyle(box);
+    box.addEventListener('change', ()=>{
+      const s = loadState();
+      s[key] = box.checked;
+      saveState(s);
+      applyItemStyle(box);
       updateProgress();
     });
   });
-
   updateProgress();
-}
 
-function updateProgress(){
-  let total = 0, done = 0;
-  STEPS.forEach((step, si) => {
-    step.items.forEach((_, ii) => {
-      total++;
-      if(state['s'+si+'i'+ii]) done++;
-    });
-  });
-  const pct = total ? Math.round((done/total)*100) : 0;
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressText').textContent = pct + '%';
-}
-
-document.getElementById('resetBtn').addEventListener('click', () => {
-  if(confirm('ต้องการล้างเช็คลิสต์ทั้งหมดหรือไม่?')){
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    if(!confirm('ล้างเช็คลิสต์ทั้งหมดใช่หรือไม่?')) return;
     localStorage.removeItem(STORAGE_KEY);
-    state = {};
-    openSteps = new Set();
-    render();
-  }
-});
-
-render();
+    boxes.forEach(box=>{ box.checked=false; applyItemStyle(box); });
+    updateProgress();
+  });
 </script>
 
 </body>
