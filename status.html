@@ -130,6 +130,23 @@
     return `${scheduleType}-${group}.jpg`;
   }
 
+  function formatStartDate(raw){
+    if(!raw) return raw;
+    const s = String(raw);
+    // กรณีเป็น ISO string เช่น 2026-08-24T00:00:00.000Z
+    let match = s.match(/^\d{4}-\d{2}-\d{2}/);
+    if(match) return match[0];
+    // กรณีเป็นรูปแบบอื่น เช่น "Mon Aug 24 2026 07:00:00 GMT+0700 (...)"
+    const d = new Date(s);
+    if(!isNaN(d.getTime())){
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+    return s;
+  }
+
   async function checkStatus(){
     const code = document.getElementById('codeInput').value.trim().toUpperCase();
     const result = document.getElementById('result');
@@ -173,7 +190,7 @@
             </div>
             <div class="idcard-body">
               <div class="grid-rows">
-                <div class="row"><span class="k">วันเริ่มงาน</span><span class="v">${data.startDate}</span></div>
+                <div class="row"><span class="k">วันเริ่มงาน</span><span class="v">${formatStartDate(data.startDate)}</span></div>
                 <div class="row"><span class="k">ประเภท</span><span class="v">${data.wageType}</span></div>
                 <div class="row"><span class="k">รหัสพนักงาน</span><span class="v">${data.empCode}</span></div>
                 <div class="row"><span class="k">กะการทำงาน</span><span class="v">${data.shift}</span></div>
