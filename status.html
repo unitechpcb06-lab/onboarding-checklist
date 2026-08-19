@@ -112,9 +112,9 @@
 
 <div class="wrap">
   <div class="card">
-    <div class="field-label">🔑 รหัสอ้างอิงของคุณ</div>
-    <input type="text" id="codeInput" placeholder="OP0001 / UT0002" autocomplete="off">
-    <div class="hint">รหัสนี้ได้รับจากฝ่ายสรรหาเป็นการส่วนตัว</div>
+    <div class="field-label">🔑 รหัสอ้างอิง หรือ รหัสพนักงาน</div>
+    <input type="text" id="codeInput" placeholder="OP0001 หรือ รหัสพนักงาน" autocomplete="off">
+    <div class="hint">กรอกรหัสอ้างอิง (ได้รับจากฝ่ายสรรหา) หรือรหัสพนักงานของคุณก็ได้</div>
     <button class="check-btn" id="checkBtn" onclick="checkStatus()">ตรวจสอบสถานะ</button>
     <div id="result"></div>
   </div>
@@ -186,7 +186,7 @@
               <div class="chip"></div>
               <div class="co">UNITECH PCB (THAILAND)</div>
               <div class="name">${data.name}</div>
-              <div class="code">รหัสอ้างอิง ${code}</div>
+              <div class="code">รหัสอ้างอิง ${data.refCode || code}</div>
             </div>
             <div class="idcard-body">
               <div class="grid-rows">
